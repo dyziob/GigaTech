@@ -1,19 +1,37 @@
-/* Przykładowe style dla nagłówka */
-header {
-    background-color: #3498db;
+/* Niestandardowe style dla menu nawigacyjnego */
+.navbar {
+    background-color: #007BFF;
+}
+
+.navbar-dark .navbar-nav .nav-link {
     color: #fff;
-    padding: 20px;
 }
 
-/* Przykładowe style dla nawigacji */
-nav {
-    background-color: #2ecc71;
-    padding: 10px;
+.navbar-dark .navbar-toggler-icon {
+    background-color: #fff;
 }
 
-/* Przykładowe style dla stopki */
+/* Niestandardowe style dla stopki */
 footer {
-    background-color: #e74c3c;
+    background-color: #343a40;
     color: #fff;
-    padding: 10px;
+}
+
+/* Niestandardowe style dla kart produktów */
+.card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.card img {
+    max-width: 100%;
+    height: auto;
+}
+
+.card-title {
+    font-size: 1.25rem;
+}
+
+.card-text {
+    font-size: 1rem;
 }
