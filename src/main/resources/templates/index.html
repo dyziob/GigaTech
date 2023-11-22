@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xml:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Komputronik Sklep Internetowy</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 
 
 
@@ -28,6 +29,14 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">Kontakt</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><div>
+                    <span>Koszyk</span>
+                    <span>(0)</span>
+                    <span>0</span>
+                    <span>zł</span>
+                </div></a>
+            </li>
         </ul>
     </div>
 </nav>
@@ -48,27 +57,18 @@
         <div class="col-md-9">
             <!-- Produkty -->
             <div class="row">
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <img src="https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2020/8/pr_2020_8_25_9_1_35_164_00.jpg" class="card-img-top" alt="Produkt 1">
+                <div class="col-md-4 mb-4" th:each="item:${items}">
+                    <div class="card" >
+                        <img  th:src="@{${item.imgUrl}}" class="card-img-top" alt="Produkt 1">
                         <div class="card-body">
-                            <h5 class="card-title">Intel i9-9900K</h5>
-                            <p class="card-text">Szybki procesor do gier i zadań profesjonalnych.</p>
-                            <a href="#" class="btn btn-primary">Kup teraz</a>
+                            <h5 class="card-title" th:text="${item.name}"></h5>
+                            <p class="card-text" th:text="${item.description}"></p>
+                            <span class="price-value" th:text="${item.price}"></span>
+                            <span class="price-currency">zł</span>
+                            <a href="#" class="btn btn-primary"><img src="/icons/pngegg.png" alt="basket" width="23px"></a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <img src="https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2021/7/pr_2021_7_23_9_39_32_991_06.jpg" class="card-img-top" alt="RTX 3080">
-                        <div class="card-body">
-                            <h5 class="card-title">Nvidia RTX 3080</h5>
-                            <p class="card-text">Wydajna karta graficzna dla graczy i profesjonalistów.</p>
-                            <a href="#" class="btn btn-primary">Kup teraz</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Dodaj więcej produktów w podobny sposób, używając kontenerów col-md-4 -->
             </div>
         </div>
     </div>
