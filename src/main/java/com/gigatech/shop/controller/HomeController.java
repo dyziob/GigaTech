@@ -1,6 +1,7 @@
 package com.gigatech.shop.controller;
 
 
+import com.gigatech.shop.Cart;
 import com.gigatech.shop.Repository.ItemRepository;
 import com.gigatech.shop.model.Item;
 import jakarta.servlet.http.HttpSession;
@@ -19,9 +20,11 @@ import java.util.Optional;
 public class HomeController {
 
     private final ItemRepository itemRepository;
+    private final Cart cart;
     @Autowired
-    public HomeController(ItemRepository itemRepository) {
+    public HomeController(ItemRepository itemRepository, Cart cart) {
         this.itemRepository = itemRepository;
+        this.cart = cart;
     }
 
     @GetMapping("/")
@@ -31,18 +34,12 @@ public class HomeController {
     }
 
     @GetMapping("/add/{itemId}")
-    public String addItemToCart(@PathVariable("itemId") Long itemId, Model model, HttpSession session) {
-        @SuppressWarnings("unchecked")
-        List<Item> cart = (List<Item>) session.getAttribute("cart");
-        if(cart == null){
-            cart = new ArrayList<>();
-        }
+    public String addItemToCart(@PathVariable("itemId") Long itemId, Model model) {
 
         Optional<Item> oItem = itemRepository.findById(itemId);
         if (oItem.isPresent()) {
             Item item = oItem.get();
-            cart.add(item);
-            session.setAttribute("cart",cart);
+            cart.addItem(item);
         }
         model.addAttribute("items", itemRepository.findAll());
         return "index";
