@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 
 @Component
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -21,43 +21,40 @@ public class Cart {
 
     public void addItem(Item item) {
         boolean notfound = true;
-
-        for(CartItem cI: cartItems){
-            if (Objects.equals(cI.getItem().getId(), item.getId())){
-                notfound = false;
-                cI.increaseCounter();
-                recalculatePriceAndCounter();
-                break;
+        getCartItemByItem(item).ifPresentOrElse(
+                CartItem::increaseCounter,
+                () -> cartItems.add(new CartItem(item))
+        );
+        recalculatePriceAndCounter();
+    }
+    public void decreaseItem(Item item){
+        Optional<CartItem> Cart_Item = getCartItemByItem(item);
+        if (Cart_Item.isPresent()){
+            CartItem cartitem = Cart_Item.get();
+            cartitem.decreaseCounter();
+            if (cartitem.zeroItems()) {
+                removeAllItems(item);
             }
         }
-
-        if(notfound) {
-            cartItems.add(new CartItem(item));
-            recalculatePriceAndCounter();
-        }
-    }
-    public void removeItem(Item item){
-        for (CartItem cI: cartItems){
-            if (Objects.equals(cI.getItem().getId(), item.getId())){
-                cI.decreaseCounter();
-                if(cI.zeroItems()) {
-                    cartItems.remove(cI);
-                }
                 recalculatePriceAndCounter();
-                break;
-            }
-        }
     }
+
+    public void removeAllItems(Item item) {
+        cartItems.removeIf(i -> i.id_Equal(item));
+        recalculatePriceAndCounter();
+    }
+
 
     private void recalculatePriceAndCounter(){
-        BigDecimal tempPrice = BigDecimal.ZERO;
-        int tempCounter = 0;
+        sum = cartItems.stream().map(CartItem::getPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        counter = cartItems.stream().map(CartItem::getCounter)
+                .reduce(0, Integer::sum);
+    }
 
-        for(CartItem cI: cartItems){
-            tempCounter += cI.getCounter();
-            tempPrice = tempPrice.add(cI.getPrice());
-        }
-        this.counter = tempCounter;
-        this.sum = tempPrice;
+    private Optional<CartItem>getCartItemByItem(Item item){
+        return cartItems.stream()
+                .filter(i -> i.id_Equal(item))
+                .findFirst();
     }
 }

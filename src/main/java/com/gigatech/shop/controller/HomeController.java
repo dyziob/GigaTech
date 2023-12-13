@@ -4,6 +4,7 @@ package com.gigatech.shop.controller;
 import com.gigatech.shop.Cart;
 import com.gigatech.shop.Repository.ItemRepository;
 import com.gigatech.shop.model.Item;
+import com.gigatech.shop.service.CartService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,29 +20,23 @@ import java.util.Optional;
 @Controller
 public class HomeController {
 
-    private final ItemRepository itemRepository;
-    private final Cart cart;
+    private final CartService cartService;
+
     @Autowired
-    public HomeController(ItemRepository itemRepository, Cart cart) {
-        this.itemRepository = itemRepository;
-        this.cart = cart;
+    public HomeController(CartService cartService) {
+        this.cartService = cartService;
     }
 
     @GetMapping("/")
     public String home(Model model, HttpSession httpSession){
-        model.addAttribute("items", itemRepository.findAll());
+        model.addAttribute("items", cartService.getAllItems());
         return "index";
     }
 
     @GetMapping("/add/{itemId}")
     public String addItemToCart(@PathVariable("itemId") Long itemId, Model model) {
-
-        Optional<Item> oItem = itemRepository.findById(itemId);
-        if (oItem.isPresent()) {
-            Item item = oItem.get();
-            cart.addItem(item);
-        }
-        model.addAttribute("items", itemRepository.findAll());
+        cartService.addItemToCart(itemId);
+        model.addAttribute("items", cartService.getAllItems());
         return "index";
     }
 }

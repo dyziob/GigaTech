@@ -36,3 +36,8 @@ footer {
     font-size: 1rem;
 }
 
+.table img.img-fluid {
+    max-width: 20%;
+    height: auto;
+}
+

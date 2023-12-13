@@ -4,6 +4,7 @@ import com.gigatech.shop.model.Item;
 import lombok.Getter;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Getter
 public class CartItem {
@@ -35,5 +36,10 @@ public class CartItem {
 
     public boolean zeroItems() {
         return counter == 0;
+    }
+
+    public boolean id_Equal(Item item){
+        return Objects.equals(this.item.getId(), item.getId());
+        //return this.item.getId().equals(item.getId());
     }
 }
