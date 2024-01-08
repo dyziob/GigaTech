@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Getter
 public class CartItem {
-    private Item item;
+    private final Item item;
     private int counter;
     private BigDecimal price;
 

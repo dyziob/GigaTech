@@ -31,6 +31,7 @@
             <!-- Produkty -->
             <div class="row">
                 <div class="col-md-4 mb-4" th:each="item:${items}">
+                    <a th:href="@{'/products/' + ${item.id}}">
                     <div class="card" >
                         <img  th:src="@{${item.imgUrl}}" class="card-img-top" alt="Produkt">
                         <div class="card-body">
@@ -41,6 +42,7 @@
                             <a th:href="@{'/add/' + ${item.id}}" class="btn btn-primary"><img src="/icons/pngegg.png" alt="basket" width="23px"></a>
                         </div>
                     </div>
+                    </a>
                 </div>
             </div>
         </div>
