@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xml:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administracyjny - Komputronik Sklep Internetowy</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<!-- Nawigacja -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Komputronik Admin</a>
+    <!-- Dodaj dowolne inne elementy nawigacji, jeśli są potrzebne -->
+</nav>
+
+<!-- Treść strony -->
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-3">
+            <!-- Menu boczne -->
+            <h4>Kategorie</h4>
+            <ul class="list-group">
+                <li class="list-group-item">Procesory</li>
+                <li class="list-group-item">Karty graficzne</li>
+                <li class="list-group-item">Pamięć RAM</li>
+                <li class="list-group-item">Dyski twarde</li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <!-- Dodawanie przedmiotu -->
+            <h4>Dodaj przedmiot</h4>
+            <form th:action="@{/admin}" method="post">
+                <div class="form-group">
+                    <label for="nazwa">Nazwa przedmiotu:</label>
+                    <input type="text" class="form-control" id="nazwa" name="name" placeholder="Wprowadź nazwę" required>
+                </div>
+                <div class="form-group">
+                    <label for="opis">Opis przedmiotu:</label>
+                    <textarea class="form-control" id="opis" rows="3" name="description" placeholder="Wprowadź opis" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="cena">Cena:</label>
+                    <input type="number" class="form-control" id="cena" name="price" placeholder="Wprowadź cenę" required>
+                </div>
+                <div class="form-group">
+                    <label for="opis">Obraz przedmiotu:</label>
+                    <textarea class="form-control" id="imgUrl" name="imgUrl" rows="1" placeholder="Wprowadź adres obrazu" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Dodaj przedmiot</button>
+            </form>
+
+            <!-- Tabela z istniejącymi produktami -->
+            <h4 class="mt-4">Istniejące produkty</h4>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Nazwa</th>
+                    <th>Opis</th>
+                    <th>Cena</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Tutaj można dynamicznie generować wiersze tabeli na podstawie danych z bazy danych -->
+                <tr>
+                    <!-- Pokazanie przedmiotów z bazy -->
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Stopka -->
+<footer class="bg-dark text-white text-center p-3 fixed-bottom">
+    &copy; 2023 Komputronik Sklep Internetowy - Panel Administracyjny
+</footer>
+
+<!-- Skrypty Bootstrap (jQuery i Popper.js) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
