@@ -23,12 +23,18 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Model model) {
+        Item productOfTheDay = cartService.getProductOfTheDay();
+        model.addAttribute("productOfTheDay", productOfTheDay);
+
         model.addAttribute("items", cartService.getAllItems());
         return "index";
     }
 
     @GetMapping("/add/{itemId}")
     public String addItemToCart(@PathVariable("itemId") Long itemId, Model model) {
+        Item productOfTheDay = cartService.getProductOfTheDay();
+        model.addAttribute("productOfTheDay", productOfTheDay);
+
         cartService.addItemToCart(itemId);
         model.addAttribute("items", cartService.getAllItems());
         return "index";
@@ -40,7 +46,7 @@ public class HomeController {
 
         if (product != null) {
             model.addAttribute("product", product);
-            return "productdetails"; // Thymeleaf view for product details
+            return "productdetails";
         } else {
             return "error";
         }

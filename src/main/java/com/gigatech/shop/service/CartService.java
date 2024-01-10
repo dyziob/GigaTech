@@ -3,6 +3,8 @@ package com.gigatech.shop.service;
 import com.gigatech.shop.Cart;
 import com.gigatech.shop.Repository.ItemRepository;
 import com.gigatech.shop.model.Item;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,9 @@ public class CartService {
 
     private final ItemRepository itemRepository;
     private final Cart cart;
+    @Getter
+    @Setter
+    private Item productOfTheDay;
 
     @Autowired
     public CartService(ItemRepository itemRepository, Cart cart) {
@@ -25,14 +30,15 @@ public class CartService {
         return itemRepository.findAll();
     }
 
-    public void addItemToCart(Long itemId){
+    public void addItemToCart(Long itemId) {
         Optional<Item> oItem = itemRepository.findById(itemId);
         if (oItem.isPresent()) {
             Item item = oItem.get();
             cart.addItem(item);
         }
     }
-    public void decreaseItemToCart(Long itemId){
+
+    public void decreaseItemToCart(Long itemId) {
         Optional<Item> oItem = itemRepository.findById(itemId);
         if (oItem.isPresent()) {
             Item item = oItem.get();
@@ -40,7 +46,7 @@ public class CartService {
         }
     }
 
-    public void removeItem(Long itemid){
+    public void removeItem(Long itemid) {
         Optional<Item> oItem = itemRepository.findById(itemid);
         if (oItem.isPresent()) {
             Item item = oItem.get();

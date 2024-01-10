@@ -41,3 +41,21 @@ footer {
     height: auto;
 }
 
+.product-of-the-day {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    margin-bottom: 20px;
+    padding: 15px;
+}
+
+.product-of-the-day img {
+    max-width: 100%;
+    height: auto;
+}
+
+.product-of-the-day h3,
+.product-of-the-day p {
+    margin-bottom: 10px;
+}
+
