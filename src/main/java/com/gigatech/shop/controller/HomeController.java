@@ -1,5 +1,6 @@
 package com.gigatech.shop.controller;
 
+import com.gigatech.shop.ItemOperation;
 import com.gigatech.shop.model.Item;
 import com.gigatech.shop.service.CartService;
 import com.gigatech.shop.service.ItemService;
@@ -35,7 +36,7 @@ public class HomeController {
         Item productOfTheDay = cartService.getProductOfTheDay();
         model.addAttribute("productOfTheDay", productOfTheDay);
 
-        cartService.addItemToCart(itemId);
+        cartService.ItemOperation(itemId, ItemOperation.INCREASE);
         model.addAttribute("items", cartService.getAllItems());
         return "index";
     }

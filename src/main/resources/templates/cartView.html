@@ -27,7 +27,7 @@
         </thead>
         <tbody>
         <tr th:each="cartItem : ${@cart.cartItems}">
-            <td><img th:src="@{${cartItem.item.imgUrl}}" style="max-width: 20%" alt="Produkt"></td>
+            <td style="width: 100px"><img th:src="@{${cartItem.item.imgUrl}}" style="max-width: 100%" alt="Produkt"></td>
             <td th:text="${cartItem.item.name}"></td>
             <td style="display: flex; padding-top: 10px">
                 <a class="mbtn" th:href="@{'/order/decrease/' + ${cartItem.item.id}}">-</a>
@@ -50,7 +50,7 @@
     </div>
 
     <div class="mt-4">
-        <a href="#" class="btn btn-primary">Przejdź do płatności</a>
+        <a th:href="@{/order/summary}" class="btn btn-primary">Przejdź do płatności</a>
     </div>
 </div>
 

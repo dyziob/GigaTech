@@ -1,6 +1,7 @@
 package com.gigatech.shop.service;
 
 import com.gigatech.shop.Cart;
+import com.gigatech.shop.ItemOperation;
 import com.gigatech.shop.Repository.ItemRepository;
 import com.gigatech.shop.model.Item;
 import lombok.Getter;
@@ -30,27 +31,18 @@ public class CartService {
         return itemRepository.findAll();
     }
 
-    public void addItemToCart(Long itemId) {
+    public void ItemOperation(long itemId, ItemOperation itemOperation) {
         Optional<Item> oItem = itemRepository.findById(itemId);
         if (oItem.isPresent()) {
             Item item = oItem.get();
-            cart.addItem(item);
+            switch (itemOperation) {
+                case INCREASE -> cart.addItem(item);
+                case DECREASE -> cart.decreaseItem(item);
+                case REMOVE -> cart.removeAllItems(item);
+                default -> throw new IllegalArgumentException();
+            }
         }
-    }
 
-    public void decreaseItemToCart(Long itemId) {
-        Optional<Item> oItem = itemRepository.findById(itemId);
-        if (oItem.isPresent()) {
-            Item item = oItem.get();
-            cart.decreaseItem(item);
-        }
-    }
 
-    public void removeItem(Long itemid) {
-        Optional<Item> oItem = itemRepository.findById(itemid);
-        if (oItem.isPresent()) {
-            Item item = oItem.get();
-            cart.removeAllItems(item);
-        }
     }
 }

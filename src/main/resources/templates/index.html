@@ -19,11 +19,6 @@
             background-color: #fff;
         }
 
-        footer {
-            background-color: #343a40;
-            color: #fff;
-        }
-
         .card {
             border: 1px solid #ccc;
             border-radius: 10px;
@@ -115,9 +110,7 @@
 </div>
 
 <!-- Stopka -->
-<footer class="bg-dark text-white text-center p-3">
-    &copy; 2023 Komputronik Sklep Internetowy
-</footer>
+<footer th:replace="fragments/footer::ShopFooter"></footer>
 
 <!-- Skrypty Bootstrap (jQuery i Popper.js) -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
