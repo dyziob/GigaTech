@@ -3,6 +3,7 @@ package com.gigatech.shop.controller;
 import com.gigatech.shop.ItemOperation;
 import com.gigatech.shop.dto.OrderDto;
 import com.gigatech.shop.service.CartService;
+import com.gigatech.shop.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class OrderController {
 
     private final CartService cartService;
+    private final OrderService orderService;
 
     @Autowired
-    public OrderController(CartService cartService) {
+    public OrderController(CartService cartService, OrderService orderService) {
         this.cartService = cartService;
+        this.orderService = orderService;
     }
 
     @GetMapping("/cart")
@@ -51,6 +54,7 @@ public class OrderController {
 
     @PostMapping("/saveorder")
     public String saveOrder(OrderDto orderDto) {
+        orderService.saveOrder(orderDto);
         return "redirect:/";
     }
 }
