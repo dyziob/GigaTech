@@ -42,7 +42,9 @@ public class CartService {
                 default -> throw new IllegalArgumentException();
             }
         }
+    }
 
-
+    public List<Item> getCategoryItems(String category) {
+        return itemRepository.findByCategory(category);
     }
 }

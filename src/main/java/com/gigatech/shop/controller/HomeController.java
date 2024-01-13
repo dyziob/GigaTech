@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
+
 @Controller
 public class HomeController {
 
@@ -51,5 +53,12 @@ public class HomeController {
         } else {
             return "error";
         }
+    }
+
+    @GetMapping("/category/{category}")
+    public String showCategoryItems(@PathVariable String category, Model model) {
+        List<Item> categoryItems = cartService.getCategoryItems(category);
+        model.addAttribute("items", categoryItems);
+        return "index";
     }
 }

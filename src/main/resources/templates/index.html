@@ -81,28 +81,30 @@
             <!-- Menu boczne -->
             <h4>Kategorie</h4>
             <ul class="list-group">
-                <li class="list-group-item">Procesory</li>
-                <li class="list-group-item">Karty graficzne</li>
-                <li class="list-group-item">Pamięć RAM</li>
-                <li class="list-group-item">Dyski twarde</li>
+                <li class="list-group-item"><a style="text-decoration: none; color: black" th:href="@{'/category/graphics card'}">Karty graficzne</a></li>
+                <li class="list-group-item"><a style="text-decoration: none; color: black" th:href="@{'/category/processor'}">Procesory</a></li>
+                <li class="list-group-item"><a style="text-decoration: none; color: black" th:href="@{'/category/ram'}">Pamięć RAM</a></li>
+                <li class="list-group-item"><a style="text-decoration: none; color: black" th:href="@{'/category/disk'}">Dyski twarde</a></li>
             </ul>
         </div>
         <div class="col-md-9">
             <!-- Produkty -->
             <div class="row">
                 <div class="col-md-4 mb-4" th:each="item:${items}">
-                    <a style="text-decoration: none; color: black" th:href="@{'/products/' + ${item.id}}">
-                        <div class="card">
-                            <img th:src="@{${item.imgUrl}}" class="card-img-top" alt="Produkt">
-                            <div class="card-body">
-                                <h5 class="card-title" th:text="${item.name}"></h5>
-                                <p class="card-text" th:text="${item.description}"></p>
-                                <span class="price-value" th:text="${item.price}"></span>
-                                <span class="price-currency">zł</span>
-                                <a th:href="@{'/add/' + ${item.id}}" class="btn btn-primary"><img src="/icons/pngegg.png" alt="basket" width="23px"></a>
+                    <th:block th:if="${item.category eq 'graphics card' or item.category eq 'processor' or item.category eq 'ram' or item.category eq 'disk'}">
+                        <a style="text-decoration: none; color: black" th:href="@{'/products/' + ${item.id}}">
+                            <div class="card">
+                                <img th:src="@{${item.imgUrl}}" class="card-img-top" alt="Produkt">
+                                <div class="card-body">
+                                    <h5 class="card-title" th:text="${item.name}"></h5>
+                                    <p class="card-text" th:text="${item.description}"></p>
+                                    <span class="price-value" th:text="${item.price}"></span>
+                                    <span class="price-currency">zł</span>
+                                    <a th:href="@{'/add/' + ${item.id}}" class="btn btn-primary"><img src="/icons/pngegg.png" alt="basket" width="23px"></a>
+                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    </th:block>
                 </div>
             </div>
         </div>

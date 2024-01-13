@@ -15,4 +15,5 @@ public class ItemServiceImpl implements ItemService {
     public Item findItemById(long id) {
         return itemRepository.findById(id).orElse(null);
     }
+
 }
