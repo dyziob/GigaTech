@@ -8,26 +8,15 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 <!-- Nawigacja -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Komputronik Admin</a>
-    <!-- Dodaj dowolne inne elementy nawigacji, jeśli są potrzebne -->
 </nav>
 
 <!-- Treść strony -->
-<div class="container mt-4">
+ <div class="container mt-4 d-flex align-items-center justify-content-center">
     <div class="row">
-        <div class="col-md-3">
-            <!-- Menu boczne -->
-            <h4>Kategorie</h4>
-            <ul class="list-group">
-                <li class="list-group-item">Procesory</li>
-                <li class="list-group-item">Karty graficzne</li>
-                <li class="list-group-item">Pamięć RAM</li>
-                <li class="list-group-item">Dyski twarde</li>
-            </ul>
-        </div>
         <div class="col-md-9">
             <!-- Dodawanie przedmiotu -->
             <h4>Dodaj przedmiot</h4>
@@ -48,6 +37,10 @@
                     <label for="opis">Obraz przedmiotu:</label>
                     <textarea class="form-control" id="imgUrl" name="imgUrl" rows="1" placeholder="Wprowadź adres obrazu" required></textarea>
                 </div>
+                <div class="form-group">
+                    <label for="opis">Wprowadź kategorię:</label>
+                    <textarea class="form-control" id="category" name="category" rows="1" placeholder="Wprowadź kategorię" required></textarea>
+                </div>
                 <button type="submit" class="btn btn-primary">Dodaj przedmiot</button>
             </form>
 
@@ -59,23 +52,30 @@
                     <th>Nazwa</th>
                     <th>Opis</th>
                     <th>Cena</th>
+                    <th>Akcje</th>
                 </tr>
                 </thead>
                 <tbody>
-                <!-- Tutaj można dynamicznie generować wiersze tabeli na podstawie danych z bazy danych -->
-                <tr>
-                    <!-- Pokazanie przedmiotów z bazy -->
+                <!-- Dynamiczne generowanie wierszy tabeli na podstawie danych z kontrolera -->
+                <tr th:each="item : ${items}">
+                    <td th:text="${item.name}"></td>
+                    <td th:text="${item.description}"></td>
+                    <td th:text="${item.price}"></td>
+                    <td>
+                        <!-- Dodaj przycisk do usuwania przedmiotu -->
+                        <form th:action="@{'/admin/deleteItem/' + ${item.id}}" method="post" style="display: inline;">
+                            <button type="submit" class="btn btn-danger btn-sm">Usuń</button>
+                        </form>
+                    </td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
-</div>
+ </div>
 
 <!-- Stopka -->
-<footer class="bg-dark text-white text-center p-3 fixed-bottom">
-    &copy; 2023 Komputronik Sklep Internetowy - Panel Administracyjny
-</footer>
+<footer th:replace="fragments/footer::ShopFooter"></footer>
 
 <!-- Skrypty Bootstrap (jQuery i Popper.js) -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

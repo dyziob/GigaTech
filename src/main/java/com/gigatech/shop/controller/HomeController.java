@@ -4,11 +4,16 @@ import com.gigatech.shop.ItemOperation;
 import com.gigatech.shop.model.Item;
 import com.gigatech.shop.service.CartService;
 import com.gigatech.shop.service.ItemService;
+import com.gigatech.shop.model.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+
 
 import java.util.List;
 
@@ -53,6 +58,18 @@ public class HomeController {
         } else {
             return "error";
         }
+    }
+
+    @PostMapping("/addComment")
+    public String addComment(@RequestParam long itemId, @RequestParam String username, @RequestParam String commentText, @RequestParam int rating) {
+        Comment comment = new Comment();
+        comment.setUsername(username);
+        comment.setText(commentText);
+        comment.setRating(rating);
+
+        itemService.saveComment(comment, itemId);
+
+        return "redirect:/products/" + itemId;
     }
 
     @GetMapping("/category/{category}")

@@ -6,10 +6,8 @@ import com.gigatech.shop.model.Item;
 import com.gigatech.shop.model.order.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,7 +25,9 @@ public class AdminController {
     }
 
     @GetMapping
-    public String adminPage(){
+    public String adminPage(Model model){
+        List<Item> existingItems = itemRepository.findAll();
+        model.addAttribute("items", existingItems);
         return "Admin/additem";
     }
 
@@ -35,6 +35,12 @@ public class AdminController {
     private String addItem(Item item) {
         itemRepository.save(item);
         return "redirect:/";
+    }
+
+    @PostMapping("/deleteItem/{itemId}")
+    public String deleteItem(@PathVariable Long itemId) {
+        itemRepository.deleteById(itemId);
+        return "redirect:/admin";
     }
 
     @GetMapping("/showorders")
