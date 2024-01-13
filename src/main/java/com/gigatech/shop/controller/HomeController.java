@@ -56,7 +56,7 @@ public class HomeController {
             model.addAttribute("product", product);
             return "productdetails";
         } else {
-            return "error";
+            return "Errors/error";
         }
     }
 
