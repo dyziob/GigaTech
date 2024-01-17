@@ -15,6 +15,7 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminController {
 
+    // Wstrzykiwanie zależności za pomocą konstruktora
     private final ItemRepository itemRepository;
     private final OrderRepository orderRepository;
 
@@ -24,28 +25,40 @@ public class AdminController {
         this.orderRepository = orderRepository;
     }
 
+    // Obsługa żądań GET na ścieżce "/admin"
     @GetMapping
     public String adminPage(Model model){
+        // Pobieranie wszystkich przedmiotów z ItemRepository
         List<Item> existingItems = itemRepository.findAll();
+        // Dodawanie listy przedmiotów do modelu w celu przekazania do widoku
         model.addAttribute("items", existingItems);
+        // Zwracanie nazwy widoku "Admin/additem"
         return "Admin/additem";
     }
 
+    // Obsługa żądań POST do dodania nowego przedmiotu
     @PostMapping
     private String addItem(Item item) {
+        // Zapisywanie nowego przedmiotu za pomocą ItemRepository
         itemRepository.save(item);
+        // Przekierowywanie do strony głównej ("/") po dodaniu przedmiotu
         return "redirect:/";
     }
 
+    // Obsługa żądań POST do usunięcia przedmiotu o danym ID
     @PostMapping("/deleteItem/{itemId}")
     public String deleteItem(@PathVariable Long itemId) {
+        // Usuwanie przedmiotu o określonym ID za pomocą ItemRepository
         itemRepository.deleteById(itemId);
+        // Przekierowywanie z powrotem do strony admina po usunięciu przedmiotu
         return "redirect:/admin";
     }
 
+    // Obsługa żądań GET na ścieżce "/admin/showorders"
     @GetMapping("/showorders")
     @ResponseBody
     public List<Order> showOrders() {
+        // Pobieranie wszystkich zamówień z OrderRepository i zwracanie jako listy
         return orderRepository.findAll();
     }
 }

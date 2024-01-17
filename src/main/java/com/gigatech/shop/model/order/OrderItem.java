@@ -20,6 +20,7 @@ public class OrderItem {
     private Long itemId;
     private int amount;
 
+    // Konstruktor tworzący obiekt OrderItem z podanymi parametrami
     public OrderItem(Long orderId, Long itemId, int amount) {
         this.orderId = orderId;
         this.itemId = itemId;

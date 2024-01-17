@@ -27,6 +27,7 @@ public class User implements UserDetails {
     private String username;
     private String password;
 
+    // Relacja wiele do wiele z Role, jeden User może mieć wiele ról
     @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role_junction",
@@ -35,17 +36,20 @@ public class User implements UserDetails {
     )
     private Set<Role> authorities;
 
+    // Konstruktor tworzący obiekt User z podanymi parametrami
     public User(String username, String password, Set<Role> authorities) {
         this.username = username;
         this.password = password;
         this.authorities = authorities;
     }
 
+    // Implementacja metody interfejsu UserDetails zwracającej role użytkownika
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.authorities;
     }
 
+    // Implementacja metod interfejsu UserDetails, które zawsze zwracają true, ponieważ nie są używane w tym przypadku
     @Override
     public boolean isAccountNonExpired() {
         return true;
