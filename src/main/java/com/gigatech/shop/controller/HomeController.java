@@ -1,11 +1,14 @@
 package com.gigatech.shop.controller;
 
 import com.gigatech.shop.ItemOperation;
+import com.gigatech.shop.model.Comment;
 import com.gigatech.shop.model.Item;
 import com.gigatech.shop.service.CartService;
 import com.gigatech.shop.service.ItemService;
-import com.gigatech.shop.model.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
-
+import java.security.PublicKey;
 import java.util.List;
 
 @Controller
@@ -30,12 +32,27 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String home(Model model) {
+    public String home(Model model, @AuthenticationPrincipal JwtAuthenticationToken authentication) {
         Item productOfTheDay = cartService.getProductOfTheDay();
         model.addAttribute("productOfTheDay", productOfTheDay);
 
         model.addAttribute("items", cartService.getAllItems());
+
+
+        if (authentication != null) {
+            Jwt jwt = authentication.getToken();
+            if (jwt != null) {
+                String tokenValue = jwt.getTokenValue();
+                model.addAttribute("token", tokenValue);
+            }
+        }
+
         return "index";
+    }
+
+    @GetMapping("/contact")
+    public String kontakt(){
+        return "kontakt";
     }
 
     @GetMapping("/add/{itemId}")

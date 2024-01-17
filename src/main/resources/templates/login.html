@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        h2 {
+            color: #007BFF;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+<nav th:replace="fragments/header_log_reg::ShopNav_log_reg"></nav>
+
+<!-- Content -->
+<div class="container mt-4 flex-grow-1">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h2>Logowanie</h2>
+            <div th:if="${param.error}">
+                <div class="alert alert-danger">Nieprawidłowa nazwa bądź hasło.</div>
+            </div>
+            <form action="/auth/login" method="post" th:action="@{/auth/login}">
+                <div class="form-group">
+                    <label for="username">Nazwa:</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Hasło:</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Zaloguj się</button>
+                    <span> Nie masz konta?
+                            <a th:href="@{/auth/register}"> Zarejestruj się tutaj</a>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Footer - Add your footer here if needed -->
+
+<!-- Bootstrap Scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

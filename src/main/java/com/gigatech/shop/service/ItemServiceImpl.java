@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.gigatech.shop.model.Comment;
 
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -25,9 +26,15 @@ public class ItemServiceImpl implements ItemService {
         Optional<Item> itemOptional = itemRepository.findById(itemId);
         itemOptional.ifPresent(item -> {
             comment.setItem(item);
+
+            if (item.getComments() == null) {
+                item.setComments(new ArrayList<>());
+            }
+
             item.getComments().add(comment);
             itemRepository.save(item);
         });
     }
+
 
 }

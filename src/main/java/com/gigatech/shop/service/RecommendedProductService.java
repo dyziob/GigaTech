@@ -22,7 +22,7 @@ public class RecommendedProductService {
         this.cartService = cartService;
     }
 
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(fixedRate = 43200000)
     public void updateRecommendedProduct() {
         List<Item> allItems = itemRepository.findAll();
         if (!allItems.isEmpty()) {

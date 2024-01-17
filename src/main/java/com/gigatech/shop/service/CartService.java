@@ -39,10 +39,13 @@ public class CartService {
                 case INCREASE -> cart.addItem(item);
                 case DECREASE -> cart.decreaseItem(item);
                 case REMOVE -> cart.removeAllItems(item);
-                default -> throw new IllegalArgumentException();
+                default -> throw new IllegalArgumentException("Nie można wykonać takiej operacji");
             }
+        } else {
+            throw new IllegalArgumentException("Nie ma takiego ID");
         }
     }
+
 
     public List<Item> getCategoryItems(String category) {
         return itemRepository.findByCategory(category);
