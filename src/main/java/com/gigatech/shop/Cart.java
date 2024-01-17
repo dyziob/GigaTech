@@ -57,4 +57,10 @@ public class Cart {
                 .filter(i -> i.id_Equal(item))
                 .findFirst();
     }
+
+    public void cleanCart() {
+        cartItems.clear();
+        counter = 0;
+        sum = BigDecimal.ZERO;
+    }
 }

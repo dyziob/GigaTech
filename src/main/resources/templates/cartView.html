@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 <!-- Nawigacja -->
 <nav th:replace="fragments/header::ShopNav"></nav>
 
@@ -23,22 +23,29 @@
             <th scope="col">Ilość</th>
             <th scope="col">Cena jednostkowa</th>
             <th scope="col">Cena łączna</th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="cartItem : ${@cart.cartItems}">
-            <td><img th:src="@{${cartItem.item.imgUrl}}" style="max-width: 20%" alt="Produkt"></td>
+            <td style="width: 100px"><img th:src="@{${cartItem.item.imgUrl}}" style="max-width: 100%" alt="Produkt"></td>
             <td th:text="${cartItem.item.name}"></td>
-            <td style="display: flex; padding-top: 10px">
-                <a class="mbtn" th:href="@{'/order/decrease/' + ${cartItem.item.id}}">-</a>
-                <p th:text="${cartItem.counter}"></p>
-                <a class="mbtn" th:href="@{'/order/increase/' + ${cartItem.item.id}}">+</a>
+            <td style="display: flex;">
+                <a class="mbtn" th:href="@{'/order/decrease/' + ${cartItem.item.id}}">
+                    <button class="btn btn-primary">-</button>
+                </a>
+                <p th:text="${cartItem.counter}" style="margin: 5px"></p>
+                <a class="mbtn" th:href="@{'/order/increase/' + ${cartItem.item.id}}">
+                    <button class="btn btn-primary">+</button>
+                </a>
             </td>
 
             <td th:text="${cartItem.price}"></td>
             <td th:text="${cartItem.getPrice()}"></td>
             <td>
-                <a class="mbtn" th:href="@{'/order/remove/' + ${cartItem.item.id}}">X</a>
+                <a class="mbtn" th:href="@{'/order/remove/' + ${cartItem.item.id}}">
+                    <button type="submit" class="btn btn-danger btn-sm">Usuń</button>
+                </a>
             </td>
 
         </tr>
@@ -50,14 +57,12 @@
     </div>
 
     <div class="mt-4">
-        <a href="#" class="btn btn-primary">Przejdź do płatności</a>
+        <a th:href="@{/order/summary}" class="btn btn-primary">Przejdź do płatności</a>
     </div>
 </div>
 
 <!-- Stopka -->
-<footer class="bg-dark text-white text-center p-3 fixed-bottom">
-    &copy; 2023 Komputronik Sklep Internetowy - Koszyk
-</footer>
+<footer th:replace="fragments/footer::ShopFooter"></footer>
 
 <!-- Skrypty Bootstrap (jQuery i Popper.js) -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

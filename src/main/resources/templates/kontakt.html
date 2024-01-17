@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xml:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Komputronik Sklep Internetowy</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .navbar {
+            background-color: #007BFF;
+        }
+
+        .navbar-dark .navbar-nav .nav-link {
+            color: #fff;
+        }
+
+        .navbar-dark .navbar-toggler-icon {
+            background-color: #fff;
+        }
+
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+
+        .card img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+        }
+
+        .card-text {
+            font-size: 1rem;
+        }
+
+        .table img.img-fluid {
+            max-width: 20%;
+            height: auto;
+        }
+
+        .product-of-the-day {
+            background-color: white;
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            margin-bottom: 20px;
+            padding: 15px;
+        }
+
+        .product-of-the-day img {
+            max-width: 50%;
+            height: auto;
+        }
+
+        .product-of-the-day h3,
+        .product-of-the-day p {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+<!-- Nawigacja -->
+<nav th:replace="fragments/header::ShopNav"></nav>
+
+<!-- Treść strony -->
+<div class="container mt-4 flex-grow-1">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Produkt dnia -->
+            <div th:if="${productOfTheDay}" class="product-of-the-day">
+                <h3>Produkt Dnia:</h3>
+                <img th:src="${productOfTheDay.imgUrl}" alt="Product of the Day" class="img-fluid">
+                <p th:text="${productOfTheDay.name}"></p>
+                <p th:text="${productOfTheDay.description}"></p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <!-- Menu boczne -->
+            <ul class="list-group">
+                <!-- Kategorie pozostają bez zmian -->
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <!-- Produkty -->
+            <div class="row">
+                <div class="col-md-4 mb-4" th:each="item:${items}">
+                    <!-- Produkty pozostają bez zmian -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dodaj nową sekcję Kontakt -->
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Kontakt</h2>
+            <p>Skontaktuj się z nami za pomocą poniższego formularza:</p>
+
+            <!-- Formularz kontaktowy -->
+            <form action="/submit-contact" method="post">
+                <div class="form-group">
+                    <label for="name">Imię i Nazwisko:</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Adres Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Wiadomość:</label>
+                    <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Wyślij</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Stopka -->
+<footer th:replace="fragments/footer::ShopFooter"></footer>
+
+<!-- Skrypty Bootstrap (jQuery i Popper.js) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
