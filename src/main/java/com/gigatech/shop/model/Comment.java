@@ -18,6 +18,7 @@ public class Comment {
     private String username;
     private int rating;
 
+    // Relacja wiele do jednego z Item, wiele Comment może przypadać do jednego Item
     @ManyToOne
     @JoinColumn(name = "item_id")
     private Item item;

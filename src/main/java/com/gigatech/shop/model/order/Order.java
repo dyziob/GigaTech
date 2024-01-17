@@ -25,6 +25,7 @@ public class Order {
 
     private LocalDateTime created;
 
+    // Relacja jeden do wielu z OrderItem, jeden Order może zawierać wiele OrderItem
     @OneToMany
     @JoinColumn(name = "orderId")
     private List<OrderItem> orderItems;

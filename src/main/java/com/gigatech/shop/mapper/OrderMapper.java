@@ -12,6 +12,7 @@ import java.util.List;
 
 public class OrderMapper {
 
+    // Metoda mapująca obiekt OrderDto na obiekt Order
     public static Order mapToOrder(OrderDto orderDto) {
         return Order.builder()
                 .firstName(orderDto.getFirstName())
@@ -23,9 +24,12 @@ public class OrderMapper {
                 .build();
     }
 
+    // Metoda mapująca elementy koszyka na listę OrderItem związaną z danym zamówieniem
     public static List<OrderItem> mapToOrderItemList(Cart cart, Order order){
         List<OrderItem> orderItems = new ArrayList<>();
+        // Iteracja po elementach koszyka
         for (CartItem ci : cart.getCartItems()) {
+            // Tworzenie nowego obiektu OrderItem i dodawanie do listy
             orderItems.add(new OrderItem(order.getOrderId(), ci.getItem().getId(), ci.getCounter()));
         }
         return orderItems;

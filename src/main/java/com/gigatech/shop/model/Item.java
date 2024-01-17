@@ -24,11 +24,13 @@ public class Item {
     private String ImgUrl;
     private String category;
 
+    // Relacja jeden do wielu z Comment, jeden Item może zawierać wiele Comment
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
     private BigDecimal averageRating;
 
+    // Konstruktor tworzący obiekt Item z podanymi parametrami
     public Item(String name, BigDecimal price, String description, String imgUrl, String category) {
         this.name = name;
         this.price = price;

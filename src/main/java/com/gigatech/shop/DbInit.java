@@ -1,5 +1,6 @@
 package com.gigatech.shop;
-
+// Klasa DbInit pełni rolę CommandLineRunner, co oznacza, że zostanie uruchomiona po uruchomieniu aplikacji Spring Boot.
+// Jest to część konfiguracji aplikacji (oznaczonej adnotacją @Configuration).
 import com.gigatech.shop.Repository.ItemRepository;
 import com.gigatech.shop.model.Item;
 import com.gigatech.shop.service.RecommendedProductService;
@@ -13,19 +14,21 @@ import java.util.List;
 
 @Configuration
 public class DbInit implements CommandLineRunner {
-
+    // Repozytorium do operacji na encjach Item.
     private final ItemRepository itemRepository;
+    // Serwis do aktualizacji rekomendowanych produktów.
     private final RecommendedProductService recommendedProductService;
 
-
+    // Konstruktor klasy, wstrzykujący zależności (itemRepository i recommendedProductService).
     @Autowired
     public DbInit(ItemRepository itemRepository, RecommendedProductService recommendedProductService) {
         this.itemRepository = itemRepository;
         this.recommendedProductService = recommendedProductService;
     }
-
+    // Metoda z interfejsu CommandLineRunner, uruchamiana po starcie aplikacji.
     @Override
     public void run(String... args) throws Exception {
+        // Dodanie przykładowych przedmiotów do repozytorium.
         itemRepository.saveAll(List.of(
                 new Item("MSI Nvidia RTX 4090 GAMING X TRIO", new BigDecimal("8999.00"), "Dzięki karcie graficznej MSI GeForce RTX 4090 GAMING X TRIO możesz grać na najwyższym poziomie nie rezygnując ze stylu.", "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2022/10/pr_2022_10_10_13_29_8_931_04.jpg", "graphics card"),
                 new Item("Intel Core i9-13900KF", new BigDecimal("2849.00"), "Ciesz się najwyższym komfortem grania w każdej postaci, teraz i w przyszłości, dzięki innowacyjnej architekturze procesora Intel Core i9-13900KF", "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2022/9/pr_2022_9_27_11_45_44_663_00.jpg", "processor"),
@@ -50,7 +53,7 @@ public class DbInit implements CommandLineRunner {
                 new Item("GOODRAM 1TB M.2 PCIe Gen4 NVMe PX700", new BigDecimal("319.00"), "GOODRAM PX700 to nowoczesny dysk SSD M.2 o pojemności 1 TB, który wykorzystuje maksymalne możliwości interfejsu PCIe 4 x4.", "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2023/11/pr_2023_11_21_11_15_41_315_00.jpg", "disk"),
                 new Item("MSI 1TB M.2 PCIe NVMe Spatium M371", new BigDecimal("229.00"), "Pamięci SPATIUM skonstruowano w celu rozszerzenia oferty MSI o kategorię wysokowydajnych pamięci masowych.", "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2023/1/pr_2023_1_11_12_40_5_808_00.jpg", "disk")
         ));
-
+        // Aktualizacja rekomendowanych produktów.
         recommendedProductService.updateRecommendedProduct();
     }
 
